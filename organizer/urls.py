@@ -18,14 +18,15 @@ from django.urls import path
 
 from tasks import views as task_view
 from journal import views as journal_views
+from enviroment import views as enviroment_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',task_view.home),
-    path('about/',task_view.about),
-    path('join/', task_view.join),
-    path('login/', task_view.user_login),
-    path('logout/', task_view.user_logout),
+    path('',enviroment_views.home),
+    path('about/',enviroment_views.about),
+    path('join/', enviroment_views.join),
+    path('login/', enviroment_views.user_login),
+    path('logout/', enviroment_views.user_logout),
     path('journal/', journal_views.journal),
  	path('journal/add/', journal_views.add),
     path('journal/edit/<int:id>/', journal_views.edit),

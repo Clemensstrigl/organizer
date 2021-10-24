@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='JournalEntry',
+            name='TaskEntry',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('datetime', models.DateField(auto_now=True)),
                 ('description', models.CharField(max_length=128)),
-                ('entry', models.CharField(max_length=65536)),
+                ('catigory', models.CharField(max_length=128)),
+                ('complete', models.BooleanField()),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
