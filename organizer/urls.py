@@ -16,6 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from tasks import views as task_view
+from journal import views as journal_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',task_view.home),
+    path('about/',task_view.about),
+    path('join/', task_view.join),
+    path('login/', task_view.user_login),
+    path('logout/', task_view.user_logout),
+    path('journal/', journal_views.journal),
+ 	path('journal/add/', journal_views.add),
+    path('journal/edit/<int:id>/', journal_views.edit),
 ]
