@@ -9,7 +9,15 @@
 
   </head>
   <body>
-    {% include "navigation.html" %}
+    {% include "enviroment/navigation.html" %}
     <div>
       <h1>P1 Organizer</h1>
     </div>
+    {% if user.is_authenticated %}
+      <h1>P1 </h1>
+
+    {% else %}
+
+    {% endif %}
+  </body>
+</html>

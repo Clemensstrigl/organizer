@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+
 
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -23,10 +25,11 @@ def join(request):
             user = join_form.save()
             user.set_password(user.password)
             user.save()
+            login(request,user)
             return redirect("/")
         else:
             page_data = { "join_form": join_form }
-            return render(request, '/join.html', page_data)
+            return render(request, 'enviroment/join.html', page_data)
     else:
         join_form = JoinForm()
         page_data = { "join_form": join_form }
