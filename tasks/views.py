@@ -13,7 +13,18 @@ def tasks(request):
 		TaskEntry.objects.filter(id=id).delete()
 		return redirect("/task/")
 	else:
-		table_data = TaskEntry.objects.filter(user=request.user)
+        CATIGORY_CHOICES = {
+        'HO':'Home',
+        'SC':'School',
+        'WO':'Work',
+        'SI':'Self Improvement',
+        'OT':'Other'
+        }
+
+        table_data = TaskEntry.objects.filter(user=request.user)
+        for catigory in table_data:
+            table_data[catigory] = CATIGORY_CHOICES[catigory]
+
 		context = {
             "table_data": table_data
 		}
@@ -26,9 +37,9 @@ def add(request):
 			add_form = TaskEntryForm(request.POST)
 			if (add_form.is_valid()):
 				description = add_form.cleaned_data["description"]
-				entry = add_form.cleaned_data["catigory"]
+				catigory = add_form.cleaned_data["catigory"]
 				user = User.objects.get(id=request.user.id)
-				TaskEntry(user=user, description=description, catigory=catigory, completed=False).save()
+				TaskEntry(user=user, description=description, catigory=catigory, complete=False).save()
 				return redirect("/tasks/")
 			else:
 				context = {
@@ -48,25 +59,25 @@ def add(request):
 def edit(request, id):
 	if (request.method == "GET"):
 		# Load Journal Entry Form with current model data.
-		journalEntry = JournalEntry.objects.get(id=id)
-		form = JournalEntryForm(instance=journalEntry)
+		taskEntry = TaskEntry.objects.get(id=id)
+		form = JournalEntryForm(instance=taskEntry)
 		context = {"form_data": form}
-		return render(request, 'journal/edit.html', context)
+		return render(request, 'tasks/edit.html', context)
 	elif (request.method == "POST"):
 		# Process form submission
 		if ("edit" in request.POST):
-			form = JournalEntryForm(request.POST)
+			form = TaskEntryForm(request.POST)
 			if (form.is_valid()):
-				journalEntry = form.save(commit=False)
-				journalEntry.user = request.user
-				journalEntry.id = id
-				journalEntry.save()
-				return redirect("/journal/")
+				taskEntry = form.save(commit=False)
+				tasklEntry.user = request.user
+				taskEntry.id = id
+				taskEntry.save()
+				return redirect("/task/")
 			else:
 				context = {
                     "form_data": form
 				}
-				return render(request, 'journal/add.html', context)
+				return render(request, 'task/add.html', context)
 		else:
 			#Cancel
 			return redirect("/journal/")

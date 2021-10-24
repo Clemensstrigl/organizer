@@ -30,15 +30,15 @@
                       </form>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="/journal/edit/{{ row.id }}/">Edit</a>
+                        <a class="btn btn-primary" href="/tasks/edit/{{ row.id }}/">Edit</a>
                         <a class="btn btn-primary" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
             {% endif %}
-            <form method="GET" action="/journal/add/">
-                <input type="submit" class="btn btn-primary" value="Add Journal Entry">
+            <form method="GET" action="/tasks/add/">
+                <input type="submit" class="btn btn-primary" value="Add Task Entry">
             </form>
         </div>
 
@@ -61,5 +61,6 @@
             </div>
         </div>
         <!--Modal ends here--->
+        
     </body>
 </html>
