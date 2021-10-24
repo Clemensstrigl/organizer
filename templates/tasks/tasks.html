@@ -9,20 +9,26 @@
     <body>
         {% include "enviroment/navigation.html" %}
         <div class="jumbotron">
-            <h1>Journal Entries</h1>
+            <h1>Task Entries</h1>
             {% if not table_data %}
-            </p>There are no journal entries to display.</p>
+          </p>There are no Task entries to display.</p>
             {% else %}
             <table class="table table-striped">
                 <tr>
-                    <th>Date / Time</th>
                     <th>Description</th>
-                    <th></th>
+                    <th>Catigory</th>
+                    <th>Completed</th>
+                    <th>Action</th>
                 </tr>
                 {% for row in table_data %}
                 <tr>
-                    <td>{{ row.datetime }}</td>
                     <td>{{ row.description }}</td>
+                    <td>{{ row.catigory }}</td>
+                    <td>
+                      <form method="get">
+                        <button class="btn info" type="submit" name="boolChangeCompleted">{{row.completed}}</button>
+                      </form>
+                    </td>
                     <td>
                         <a class="btn btn-primary" href="/journal/edit/{{ row.id }}/">Edit</a>
                         <a class="btn btn-primary" href="#" onclick="confirmDeleteModal({{ row.id }})">Delete</a>

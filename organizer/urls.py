@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from tasks import views as task_view
-from journal import views as journal_views
 from enviroment import views as enviroment_views
+from tasks import views as task_views
+from journal import views as journal_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,9 @@ urlpatterns = [
     path('join/', enviroment_views.join),
     path('login/', enviroment_views.user_login),
     path('logout/', enviroment_views.user_logout),
+    path('tasks/', task_views.tasks),
+    path('tasks/add/', task_views.add),
+    path('tasks/edit/<int:id>/', task_views.edit),
     path('journal/', journal_views.journal),
  	path('journal/add/', journal_views.add),
     path('journal/edit/<int:id>/', journal_views.edit),
