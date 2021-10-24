@@ -1,0 +1,36 @@
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title>A4: Chess</title>
+    {% load static %}
+    {% include "app1/bootstrap.html" %}
+    <script src="{%static 'chess.js' %}" /></script>
+    <link rel="stylesheet" href="{%static 'chess.css' %}"/>
+
+  </head>
+  <body>
+    {% include "app1/navigation.html" %}
+    <div>
+      <h1>CINS 465: Assigment 5 by Clemens Strigl</h1>
+    </div>
+    <div class="col-2">
+      <img src="{% static 'CSImage.jpg' %}" class="img-fluid"/>
+    </div>
+    <div class="col-4">
+      <p>Hi, my name is Clemens Strigl. I was born in Austria and lived there for most of my life. I moved to the US 6 years ago where i found the passion for coding and have been interested in it ever since. I graduated from Fremont High School in Sunnyvale
+        in 2020. Although it was not much of a graduation, I still very much enjoyed the final few months of Senior year at home. Since then I have been attending Chico State University to learn Computer Science and to hopefully have a well paying job after
+        that will last me for a life time.</p>
+    </div>
+    <div>
+      <h3>Programming Process</h3>
+      <ol>
+        <li>I created a tables that housed a 2D grid from 1-8 and a-h in HTML</li>
+        <li>I shaped the table to what was required and added labes to the side of the tables labeling each row and column using both HTML and CSS</li>
+        <li>I colored the table to the correct colors and added the Unicode characters</li>
+        <li>I did a few touchups on the size of every cell, borders between cells, etc.</li>
+        <li>Finally, I added all the descriptions on the bottom along with the two lists</li>
+      </ol>
+    </div>
+  </body>
+</html>
