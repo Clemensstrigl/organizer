@@ -41,3 +41,7 @@ table tr td:nth-child(9) {
 input[type="text"]:enabled:hover {
   background-color: yellow;
 }
+
+.button:hover {
+  content:"Logout";
+}
