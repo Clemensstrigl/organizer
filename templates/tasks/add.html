@@ -14,13 +14,14 @@
         {% include "enviroment/navigation.html" %}
         <div class="jumbotron">
             <h1>Add Task Entry</h1>
-            <form method="POST">
+            <form method="POST" id="TaskForm" data-category-url="{% url 'ajax_load_categories' %}" novalidate>
                 {% csrf_token %}
                 <table>
-                    {{ form_data.as_table }}
+                  {{ form_data.as_table }}
                     <tr>
                         <td></td>
                         <td>
+
                             <a href="/tasks/" class="btn btn-secondary">Cancel</a>
                             <input type="submit" class="btn btn-primary" name="add" value="Add Journal Entry">
                         </td>
@@ -28,6 +29,21 @@
                     </tr>
                 </table>
             </form>
+            <script>
+            $("#id_category").change(function () {
+              var url = $("#TaskForm").attr("data-category-url");  // get the url of the `load_cities` view
+
+              $.ajax({                       // initialize an AJAX request
+                url: url,
+                data:{},
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                  $("#id_category").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+                                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+              });
+
+            });
+            </script>
         </div>
     </body>
 </html>

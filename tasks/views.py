@@ -3,43 +3,53 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from tasks.models import TaskEntry
 from tasks.forms import TaskEntryForm
+from tasks.models import TaskCategory
 from django.contrib.auth.models import User
 from django.shortcuts import render
 
 @login_required(login_url='/login/')
 def tasks(request):
+
 	if (request.method == "GET" and "delete" in request.GET):
 		id = request.GET["delete"]
 		TaskEntry.objects.filter(id=id).delete()
 		return redirect("/task/")
 	else:
-        CATIGORY_CHOICES = {
-        'HO':'Home',
-        'SC':'School',
-        'WO':'Work',
-        'SI':'Self Improvement',
-        'OT':'Other'
-        }
-
-        table_data = TaskEntry.objects.filter(user=request.user)
-        for catigory in table_data:
-            table_data[catigory] = CATIGORY_CHOICES[catigory]
-
+		table_data = TaskEntry.objects.filter(user=request.user)
 		context = {
             "table_data": table_data
 		}
 		return render(request, 'tasks/tasks.html', context)
 
+def load_categories(request):
+    categories = TaskCategory.values('category').order_by('category')
+    return render(request, 'tasks/category_dropdown_options.html', {'categories': categories})
+
+
 @login_required(login_url='/login/')
 def add(request):
+
+	if(TaskCategory.objects.count() == 0):
+		TaskCategory.objects.create(category="Home")
+		TaskCategory.objects.create(category="School")
+		TaskCategory.objects.create(category="Work")
+		TaskCategory.objects.create(category="Self Improvement")
+		TaskCategory.objects.create(category="Other")
+
+	print(TaskCategory.objects.count())
+
+
+
+
 	if (request.method == "POST"):
 		if ("add" in request.POST):
 			add_form = TaskEntryForm(request.POST)
 			if (add_form.is_valid()):
 				description = add_form.cleaned_data["description"]
-				catigory = add_form.cleaned_data["catigory"]
+				category = TaskCategory.objects.get(category=add_form.cleaned_data["category"])
 				user = User.objects.get(id=request.user.id)
-				TaskEntry(user=user, description=description, catigory=catigory, complete=False).save()
+
+				TaskEntry(user=user, description=description, category=category, complete=False).save()
 				return redirect("/tasks/")
 			else:
 				context = {

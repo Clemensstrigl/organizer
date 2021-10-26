@@ -1,11 +1,16 @@
 from django import forms
 from tasks.models import TaskEntry
+from tasks.models import TaskCategory
 
 class TaskEntryForm(forms.ModelForm):
-    CATIGORY_CHOICES = [('HO', 'Home'),('SC','School'),('WO','Work'),('SI','Self Improvement'),('OT', 'Other')]
     description = forms.CharField(widget=forms.TextInput(attrs={'size':'80'}))
-    catigory = forms.ChoiceField(choices=CATIGORY_CHOICES)
+    #CATEGORY_CHOICES = ['Home','School', 'Work','Self Improvement', 'Other']
+#    category = forms.ChoiceField(choices=CATEGORY_CHOICES)
 
     class Meta():
         model = TaskEntry
-        fields = ('description', 'catigory')
+        fields = ('description', 'category')
+
+    #def __init__(self, *args, **kwargs):
+        #super().__init__(*args, **kwargs)
+        #self.fields['category'].queryset = TaskCategory.objects.none()

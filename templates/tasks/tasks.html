@@ -16,17 +16,23 @@
             <table class="table table-striped">
                 <tr>
                     <th>Description</th>
-                    <th>Catigory</th>
+                    <th>Category</th>
                     <th>Completed</th>
                     <th>Action</th>
                 </tr>
                 {% for row in table_data %}
                 <tr>
                     <td>{{ row.description }}</td>
-                    <td>{{ row.catigory }}</td>
+                    <td>{{ row.category}}</td>
                     <td>
                       <form method="get">
-                        <button class="btn info" type="submit" name="boolChangeCompleted">{{row.completed}}</button>
+                        <button class="btn info" type="submit" name="boolChangeCompleted">
+                          {% if row.complete %}
+                            Yes
+                          {% else %}
+                            No
+                          {% endif %}
+                        </button>
                       </form>
                     </td>
                     <td>
@@ -61,6 +67,6 @@
             </div>
         </div>
         <!--Modal ends here--->
-        
+
     </body>
 </html>
