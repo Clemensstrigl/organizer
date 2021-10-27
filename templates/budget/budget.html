@@ -37,7 +37,7 @@
             {% endif %}
 
             <a>
-              {% if totalSpendDifference > 0 %}
+              {% if totalSpendDifference >= 0 %}
               surplus of ${{totalSpendDifference}}
               {% else %}
               deficit of ${{totalSpendDifference}}

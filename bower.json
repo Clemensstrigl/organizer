@@ -1,0 +1,13 @@
+{
+  "name": "organizer",
+  "homepage": "https://github.com/cstrigl928/organizer",
+  "authors": [
+    "cstrigl <cstrigl@mail.csuchico.edu>"
+  ],
+  "description": "organizer",
+  "main": "manage.py",
+  "license": "MIT",
+  "dependencies": {
+    "chartist": "^0.11.4"
+  }
+}

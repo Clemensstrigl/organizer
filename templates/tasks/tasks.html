@@ -4,12 +4,13 @@
         <title>Tasks</title>
         {% include "bootstrap.html" %}
         {% load static %}
-        <script src="{%static 'journal/journal.js' %}"></script>
+        <script src="{%static 'organizer.js' %}"></script>
+        <link rel="stylesheet" href="{%static 'organizer.css' %}"/>
     </head>
     <body>
         {% include "enviroment/navigation.html" %}
         <div class="jumbotron">
-            <h1>Task Entries</h1>
+            <h2>Task Entries</h2>
             {% if not table_data %}
           </p>There are no Task entries to display.</p>
             {% else %}
@@ -26,7 +27,7 @@
                     <td>{{ row.category}}</td>
                     <td>
                       <form method="get" id="CompleteButtonForm{{row.id}}">
-                        <button class="btn info" id="TaskCompleteButton" data-task-complete-url="{% url 'ajax_task_completed' %}" type="submit" name="boolChangeCompleted">
+                        <button class="completeBNT info" id="TaskCompleteButton{{row.id}}" data-task-complete-url="{% url 'ajax_task_completed' %}" type="submit" name="boolChangeCompleted">
                           {% if row.complete %}
                             Yes
                           {% else %}
@@ -36,16 +37,14 @@
                       </form>
                       <script>
 
-                      document.getElementById("TaskCompleteButton").onclick = function taskCompleted(){
-                        var url = $("#TaskCompleteButton").attr("data-task-complete-url");
-                        var id = {{row.id}};
+                      document.getElementById("TaskCompleteButton{{row.id}}").onclick = function taskCompleted(){
+                        var url = $("#TaskCompleteButton{{row.id}}").attr("data-task-complete-url");
 
                         $.ajax({                       // initialize an AJAX request
                           url: url,
-                          data:{'task_id':id},
+                          data:{'task_id':{{row.id}}},
                           success: function (data) {
-                            var newform = "#CompleteButtonForm" + id;
-                            $(newform).html(data);  // replace the contents of the city input with the data that came from the server
+                            $("#CompleteButtonForm{{row.id}}").html(data);  // replace the contents of the city input with the data that came from the server
                           }
                         });
 

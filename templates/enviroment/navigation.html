@@ -23,7 +23,7 @@
         {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="/logout/">
-              <button class="btn btn-outline-success my-2 my-sm-0">{{user.username}}</button>
+              <button class="btn btn-outline-success my-2 my-sm-0 logoutButton">{{user.username}}</button>
             </a>
           </li>
         {% else %}

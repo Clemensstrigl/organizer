@@ -4,20 +4,75 @@
     <title>P1: Oragnizer</title>
     {% load static %}
     {% include "bootstrap.html" %}
-    <script src="{% static 'organizer.js' %}" /></script>
+    <script src="{% static 'enviroment/enviroment.js' %}" /></script>
     <link rel="stylesheet" href="{% static 'organizer.css' %}"/>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   </head>
   <body>
     {% include "enviroment/navigation.html" %}
     <div>
-      <h1>P1 Organizer</h1>
+
     </div>
-    {% if user.is_authenticated %}
-      <h1>P1 </h1>
+    <div class='charts'>
+      <h1>P1 Organizer</h1>
+      <a class="pieChart PC"></a>
+      <a class="barChart BC"></a>
+    </div>
+      <script >
+      var barData = {
+        series: [
+          {{projectedList}},
+          {{actualList}}
+        ]
+      };
+      var pieData = {
+        labels: [
+          {% if pieDataCompleted != 0 %}
+          'completed'
+          {% else %}
+          '-'
+          {% endif %}
 
-    {% else %}
+          , {% if pieDataUnfinished != 0 %}
+          'unfinished'
+          {% else %}
+          '-'
+          {% endif %}],
+        series: [{{pieDataCompleted}}, {{pieDataUnfinished}}]
 
-    {% endif %}
+      };
+
+      var barOptions = {
+        seriesBarDistance: 10,
+        width: '400px',
+        height: '400px',
+
+      };
+
+      var pieOptions = {
+          width: '700px',
+          height: '400px',
+          chartPadding: 30,
+          labelOffset: 100,
+          labelDirection: 'explode'
+      };
+
+      var barResponsiveOptions = [
+        ['screen and (max-width: 640px)', {
+          seriesBarDistance: 5,
+          axisX: {
+            labelInterpolationFnc: function (value) {
+              return value[0];
+            }
+          }
+        }]
+      ];
+
+      new Chartist.Bar('.barChart', barData, barOptions, barResponsiveOptions);
+
+      new Chartist.Pie('.pieChart', pieData, pieOptions);
+
+      </script>
   </body>
 </html>

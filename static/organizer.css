@@ -1,10 +1,31 @@
-
-/* type selector, attribute selector, pseudo-class selector
-"when mouse hovers over any input tag of type text that is enabled." */
-input[type="text"]:enabled:hover {
+input[type="text"]:enabled:hover{
   background-color: yellow;
 }
 
-.button:hover {
-  content:"Logout";
+
+
+.logoutButton:hover:after{
+  content:" Logout";
+}
+
+.completeBNT{
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  color: dodgerblue;
+}
+
+.charts{
+  margin: auto;
+}
+
+.BC{
+  padding: 60px;
+}
+
+h1{
+  text-align: center;
 }

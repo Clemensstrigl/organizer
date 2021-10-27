@@ -7,13 +7,36 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from enviroment.forms import JoinForm, LoginForm
-from journal.models import JournalEntry
 from tasks.models import TaskEntry
+from budget.models import BudgetEntry
 
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
 def home(request):
-    return render(request, 'enviroment/home.html')
+
+    pieCompleted = 0
+    pieUnfinished = 0
+
+    userTasks = list(TaskEntry.objects.filter(user=request.user).values_list('complete',flat = True))
+    for completed in userTasks:
+        if(completed == True):
+            pieCompleted +=1
+        else:
+            pieUnfinished += 1
+
+
+    projectedList = list(BudgetEntry.objects.filter(user=request.user).values_list('projected',flat = True))
+    actualList = list(BudgetEntry.objects.filter(user=request.user).values_list('actual',flat = True))
+    userBudget = BudgetEntry.objects.filter(user=request.user)
+    print(pieCompleted)
+    print(pieUnfinished)
+    print(projectedList)
+    print(actualList)
+
+    page_data = {'pieDataCompleted': pieCompleted, 'pieDataUnfinished':pieUnfinished, 'projectedList':projectedList, 'actualList': actualList,
+                  }
+    return render(request, 'enviroment/home.html', page_data)
 
 def about(request):
     return render(request,'enviroment/about.html')
