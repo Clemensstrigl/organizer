@@ -21,6 +21,24 @@ def tasks(request):
 		}
 		return render(request, 'tasks/tasks.html', context)
 
+
+
+def taskCompleted(request):
+	task_id=request.GET.get('task_id')
+	print(task_id)
+	currentTask = TaskEntry.objects.get(id=task_id)
+	taskState = False
+	if(currentTask.complete):
+		currentTask.complete = False
+	else:
+		currentTask.complete = True
+		taskState = True
+
+	currentTask.save()
+	return render(request, 'task/completeTaskChange.html', {"taskState" : taskState})
+
+
+
 def load_categories(request):
     categories = TaskCategory.values('category').order_by('category')
     return render(request, 'tasks/category_dropdown_options.html', {'categories': categories})
@@ -70,7 +88,7 @@ def edit(request, id):
 	if (request.method == "GET"):
 		# Load Journal Entry Form with current model data.
 		taskEntry = TaskEntry.objects.get(id=id)
-		form = JournalEntryForm(instance=taskEntry)
+		form = TaskEntryForm(instance=taskEntry)
 		context = {"form_data": form}
 		return render(request, 'tasks/edit.html', context)
 	elif (request.method == "POST"):
@@ -79,7 +97,7 @@ def edit(request, id):
 			form = TaskEntryForm(request.POST)
 			if (form.is_valid()):
 				taskEntry = form.save(commit=False)
-				tasklEntry.user = request.user
+				taskEntry.user = request.user
 				taskEntry.id = id
 				taskEntry.save()
 				return redirect("/task/")

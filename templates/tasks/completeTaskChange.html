@@ -1,0 +1,7 @@
+<button class="btn info" id="TaskCompleteButton" data-task-complete-url="{% url 'ajax_task_completed' %}" type="submit" name="boolChangeCompleted">
+  {% if taskState %}
+    Yes
+  {% else %}
+    No
+  {% endif %}
+</button>

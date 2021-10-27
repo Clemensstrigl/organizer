@@ -35,4 +35,5 @@ urlpatterns = [
  	path('journal/add/', journal_views.add),
     path('journal/edit/<int:id>/', journal_views.edit),
     path('ajax/load-categories/', task_views.load_categories, name='ajax_load_categories'),
+    path('ajax/taskCompleted/', task_views.taskCompleted, name='ajax_task_completed'),
 ]
