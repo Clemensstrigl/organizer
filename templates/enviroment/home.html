@@ -14,7 +14,7 @@
     <div>
 
     </div>
-    <div class='charts'>
+    <div class='charts '>
       <h1>P1 Organizer</h1>
       <a class="pieChart PC"></a>
       <a class="barChart BC"></a>
@@ -29,13 +29,13 @@
       var pieData = {
         labels: [
           {% if pieDataCompleted != 0 %}
-          'completed'
+          'completed ({{pieDataCompleted}})'
           {% else %}
           '-'
           {% endif %}
 
           , {% if pieDataUnfinished != 0 %}
-          'unfinished'
+          'unfinished({{pieDataUnfinished}})'
           {% else %}
           '-'
           {% endif %}],

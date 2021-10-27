@@ -29,13 +29,7 @@ def home(request):
     projectedList = list(BudgetEntry.objects.filter(user=request.user).values_list('projected',flat = True))
     actualList = list(BudgetEntry.objects.filter(user=request.user).values_list('actual',flat = True))
     userBudget = BudgetEntry.objects.filter(user=request.user)
-    print(pieCompleted)
-    print(pieUnfinished)
-    print(projectedList)
-    print(actualList)
-
-    page_data = {'pieDataCompleted': pieCompleted, 'pieDataUnfinished':pieUnfinished, 'projectedList':projectedList, 'actualList': actualList,
-                  }
+    page_data = {'pieDataCompleted': pieCompleted, 'pieDataUnfinished':pieUnfinished, 'projectedList':projectedList, 'actualList': actualList}
     return render(request, 'enviroment/home.html', page_data)
 
 def about(request):

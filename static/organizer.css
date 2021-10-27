@@ -29,3 +29,12 @@ input[type="text"]:enabled:hover{
 h1{
   text-align: center;
 }
+
+.aboutPage{
+  text-align: center;
+  align-items: center;
+}
+
+p{
+  text-align: center;
+}

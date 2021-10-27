@@ -2,35 +2,32 @@
   <head>
 
     <meta charset="utf-8">
-    <title>A4: Chess</title>
+    <title>P1: Organizer</title>
     {% load static %}
     {% include "bootstrap.html" %}
-    <script src="{%static 'chess.js' %}" /></script>
-    <link rel="stylesheet" href="{%static 'chess.css' %}"/>
+    <script src="{%static 'organizer.js' %}" /></script>
+    <link rel="stylesheet" href="{%static 'organizer.css' %}"/>
 
   </head>
   <body>
     {% include "enviroment/navigation.html" %}
     <div>
-      <h1>CINS 465: Assigment 5 by Clemens Strigl</h1>
+      <h1>CINS 465: Project 1 by Clemens Strigl</h1>
     </div>
-    <div class="col-2">
-      <img src="{% static 'CSImage.jpg' %}" class="img-fluid"/>
-    </div>
-    <div class="col-4">
-      <p>Hi, my name is Clemens Strigl. I was born in Austria and lived there for most of my life. I moved to the US 6 years ago where i found the passion for coding and have been interested in it ever since. I graduated from Fremont High School in Sunnyvale
-        in 2020. Although it was not much of a graduation, I still very much enjoyed the final few months of Senior year at home. Since then I have been attending Chico State University to learn Computer Science and to hopefully have a well paying job after
-        that will last me for a life time.</p>
-    </div>
-    <div>
-      <h3>Programming Process</h3>
-      <ol>
-        <li>I created a tables that housed a 2D grid from 1-8 and a-h in HTML</li>
-        <li>I shaped the table to what was required and added labes to the side of the tables labeling each row and column using both HTML and CSS</li>
-        <li>I colored the table to the correct colors and added the Unicode characters</li>
-        <li>I did a few touchups on the size of every cell, borders between cells, etc.</li>
-        <li>Finally, I added all the descriptions on the bottom along with the two lists</li>
-      </ol>
-    </div>
-  </body>
+    <div class="aboutPage container">
+      <div class="col-7 aboutPage">
+        <img src="{% static 'CSImage.jpg' %}" class="img-fluid"/>
+      </div>
+      <div class="jumbotron, margin">
+        <p>Hi, my name is Clemens Strigl. I was born in Austria and lived there for most of my life. I moved to the US 6 years ago where i found the passion for coding and have been interested in it ever since. I graduated from Fremont High School in Sunnyvale
+          in 2020. Although it was not much of a graduation, I still very much enjoyed the final few months of Senior year at home. Since then I have been attending Chico State University to learn Computer Science and to hopefully have a well paying job after
+          that will last me for a life time.</p>
+        </div>
+        <div>
+          <h3>Programming Process</h3>
+          <p>Project one was definitly a really fun webpage to program. I had some challenges thoughout the process but in the end i was able to fix them all the have a smooth running program. For my category request, since we were not allowed to use choices, i
+          there for used ajax queries to retrieve the data and input it into the webpage afterwards. This did present some challeneges like having to learn ajax but it worked really well once i fixed all the bugs. </p>
+        </div>
+      </div>
+    </body>
 </html>
