@@ -15,12 +15,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='JournalEntry',
+            name='BudgetCategory',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('datetime', models.DateField(auto_now=True)),
+                ('category', models.CharField(max_length=128)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='BudgetEntry',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.CharField(max_length=128)),
-                ('entry', models.CharField(max_length=65536)),
+                ('projected', models.FloatField(max_length=10)),
+                ('actual', models.FloatField(max_length=10)),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='budget.BudgetCategory')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

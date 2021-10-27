@@ -19,6 +19,7 @@ from django.urls import path
 from enviroment import views as enviroment_views
 from tasks import views as task_views
 from journal import views as journal_views
+from budget import views as budget_views
 
 
 urlpatterns = [
@@ -36,4 +37,7 @@ urlpatterns = [
     path('journal/edit/<int:id>/', journal_views.edit),
     path('ajax/load-categories/', task_views.load_categories, name='ajax_load_categories'),
     path('ajax/taskCompleted/', task_views.taskCompleted, name='ajax_task_completed'),
+    path('budget/', budget_views.budget),
+    path('budget/add/', budget_views.add),
+    path('budget/edit/<int:id>/', budget_views.edit),
 ]

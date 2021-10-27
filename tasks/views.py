@@ -13,7 +13,7 @@ def tasks(request):
 	if (request.method == "GET" and "delete" in request.GET):
 		id = request.GET["delete"]
 		TaskEntry.objects.filter(id=id).delete()
-		return redirect("/task/")
+		return redirect("/tasks/")
 	else:
 		table_data = TaskEntry.objects.filter(user=request.user)
 		context = {
@@ -35,7 +35,7 @@ def taskCompleted(request):
 		taskState = True
 
 	currentTask.save()
-	return render(request, 'task/completeTaskChange.html', {"taskState" : taskState})
+	return render(request, 'tasks/completeTaskChange.html', {"taskState" : taskState})
 
 
 
@@ -108,4 +108,4 @@ def edit(request, id):
 				return render(request, 'task/add.html', context)
 		else:
 			#Cancel
-			return redirect("/journal/")
+			return redirect("/tasks/")
