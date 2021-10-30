@@ -11,3 +11,7 @@ class TaskEntry(models.Model):
     description = models.CharField(max_length=128)
     category = models.ForeignKey(TaskCategory, on_delete=models.CASCADE)
     complete = models.BooleanField()
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    tasks_view_hide_completed = models.BooleanField(default=False)
