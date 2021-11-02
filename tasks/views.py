@@ -5,7 +5,7 @@ from tasks.models import TaskEntry
 from tasks.forms import TaskEntryForm
 from tasks.models import TaskCategory
 from django.contrib.auth.models import User
-from tasks.models import UserProfile
+from enviroment.models import UserProfile
 from django.shortcuts import render
 
 @login_required(login_url='/login/')
@@ -15,23 +15,28 @@ def tasks(request):
 		id = request.GET["delete"]
 		TaskEntry.objects.filter(id=id).delete()
 		return redirect("/tasks/")
-	elif (request.method == "GET" and "tasks_view_hide_completed" in request.GET):
-		task_view_status = UserProfile.objects.filter(user=user).get('tasks_view_hide_completed')
+	elif (request.method == "POST" and "tasks_view_hide_completed" in request.POST):
+		task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
 		if(task_view_status == True):
 			task_view_status = False
-			tasl_view_status.save()
+			UserProfile(user=request.user, tasks_view_hide_completed=task_view_status).save()
 			table_data = TaskEntry.objects.filter(user=request.user)
 			context = {
 	            "table_data": table_data
 			}
 			return render(request, 'tasks/tasks.html', context)
 		else:
-			task_view_status = UserProfile.objects.filter(user=user).get('tasks_view_hide_completed')
-			print(task_view_status)
+			task_view_status = True
+			UserProfile(user=request.user, tasks_view_hide_completed=task_view_status).save()
+			table_data = TaskEntry.objects.filter(user=request.user, complete=False)
+			context = {
+	            "table_data": table_data,
+				"task_view_status": task_view_status
+			}
+			return render(request, 'tasks/tasks.html', context)
 	else:
 		table_data = TaskEntry.objects.filter(user=request.user)
 		task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
-		print(task_view_status)
 		context = {
             "table_data": table_data,
 			"task_view_status": task_view_status

@@ -14,11 +14,9 @@
             {% if not table_data %}
               </p>There are no Task entries to display.</p>
             {% else %}
-            <form method="get" id="tasks_view_hide_completed">
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="tasks_view_hide_completed" name="tasks_view_hide_completed" onChange="sumbit()">
-                <label class="form-check-label"> Hide Completed Tasks</label>
-              </div>
+            <form method="POST" action="/tasks/">{% csrf_token %}
+                <label for="id_tasks_view_hide_completed">Hide Completed Tasks:</label>
+                <input type="checkbox" name="tasks_view_hide_completed" onclick="this.form.submit()" id="id_tasks_view_hide_completed">
             </form>
             <table class="table table-striped">
                 <tr>
