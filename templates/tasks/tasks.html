@@ -16,7 +16,7 @@
             {% else %}
             <form method="POST" action="/tasks/">{% csrf_token %}
                 <label for="id_tasks_view_hide_completed">Hide Completed Tasks:</label>
-                <input type="checkbox" name="tasks_view_hide_completed" onclick="this.form.submit()" id="id_tasks_view_hide_completed">
+                <input type="checkbox" name="tasks_view_hide_completed" onclick="this.form.submit()" id="id_tasks_view_hide_completed" >
             </form>
             <table class="table table-striped">
                 <tr>

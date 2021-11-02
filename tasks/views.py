@@ -17,12 +17,14 @@ def tasks(request):
 		return redirect("/tasks/")
 	elif (request.method == "POST" and "tasks_view_hide_completed" in request.POST):
 		task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
+		print(task_view_status)
 		if(task_view_status == True):
 			task_view_status = False
 			UserProfile(user=request.user, tasks_view_hide_completed=task_view_status).save()
 			table_data = TaskEntry.objects.filter(user=request.user)
 			context = {
-	            "table_data": table_data
+	            "table_data": table_data,
+				"task_view_status": task_view_status
 			}
 			return render(request, 'tasks/tasks.html', context)
 		else:
