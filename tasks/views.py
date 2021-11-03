@@ -8,42 +8,45 @@ from django.contrib.auth.models import User
 from enviroment.models import UserProfile
 from django.shortcuts import render
 
+def showAllTasks(UserProfile, TaskEntry, request):
+	UserProfile.objects.filter(user=request.user).delete()
+	UserProfile(user=request.user, tasks_view_hide_completed=False).save()
+	table_data = TaskEntry.objects.filter(user=request.user)
+	context = {
+		"table_data": table_data,
+		"task_view_status": False,
+	}
+	return render(request, 'tasks/tasks.html', context)
+
+def hideAllCompleted(UserProfile, TaskEntry, request):
+	UserProfile.objects.filter(user=request.user).delete()
+	UserProfile(user=request.user, tasks_view_hide_completed=True).save()
+	table_data = TaskEntry.objects.filter(user=request.user, complete=False)
+	context = {
+		"table_data": table_data,
+		"task_view_status": True,
+	}
+	return render(request, 'tasks/tasks.html', context)
+
+
+
 @login_required(login_url='/login/')
 def tasks(request):
-
+	task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')[0]['tasks_view_hide_completed']
 	if (request.method == "GET" and "delete" in request.GET):
 		id = request.GET["delete"]
 		TaskEntry.objects.filter(id=id).delete()
 		return redirect("/tasks/")
 	elif (request.method == "POST" and "tasks_view_hide_completed" in request.POST):
-		task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
-		print(task_view_status)
 		if(task_view_status == True):
-			task_view_status = False
-			UserProfile(user=request.user, tasks_view_hide_completed=task_view_status).save()
-			table_data = TaskEntry.objects.filter(user=request.user)
-			context = {
-	            "table_data": table_data,
-				"task_view_status": task_view_status
-			}
-			return render(request, 'tasks/tasks.html', context)
+			return showAllTasks(UserProfile, TaskEntry, request)
 		else:
-			task_view_status = True
-			UserProfile(user=request.user, tasks_view_hide_completed=task_view_status).save()
-			table_data = TaskEntry.objects.filter(user=request.user, complete=False)
-			context = {
-	            "table_data": table_data,
-				"task_view_status": task_view_status
-			}
-			return render(request, 'tasks/tasks.html', context)
+			return hideAllCompleted(UserProfile, TaskEntry, request)
 	else:
-		table_data = TaskEntry.objects.filter(user=request.user)
-		task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
-		context = {
-            "table_data": table_data,
-			"task_view_status": task_view_status
-		}
-		return render(request, 'tasks/tasks.html', context)
+		if(task_view_status == False):
+			return showAllTasks(UserProfile, TaskEntry, request)
+		else:
+			return hideAllCompleted(UserProfile, TaskEntry, request)
 
 
 
