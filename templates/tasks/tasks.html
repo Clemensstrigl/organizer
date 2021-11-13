@@ -13,7 +13,12 @@
             <h2>Task Entries</h2>
             <form method="POST" action="/tasks/">{% csrf_token %}
                 <label for="id_tasks_view_hide_completed">Hide Completed Tasks:</label>
-                <input type="checkbox" name="tasks_view_hide_completed" onclick="this.form.submit()" id="id_tasks_view_hide_completed">
+                {% if task_view_status == True %}
+                <input type="checkbox" class='TaskCheckBox' name="tasks_view_hide_completed" onclick="this.form.submit();" id="id_tasks_view_hide_completed"  value="True" checked>
+                {% else %}
+                <input type="checkbox" class='TaskCheckBox' name="tasks_view_hide_completed" onclick="this.form.submit();" id="id_tasks_view_hide_completed" value="False">
+                {% endif %}
+
             </form>
             {% if not table_data %}
               </p>There are no Task entries to display.</p>

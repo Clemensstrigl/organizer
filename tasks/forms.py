@@ -14,3 +14,12 @@ class TaskEntryForm(forms.ModelForm):
     #def __init__(self, *args, **kwargs):
         #super().__init__(*args, **kwargs)
         #self.fields['category'].queryset = TaskCategory.objects.none()
+
+#class hideCompletedTasks(forms.ModelForm):
+#    task_view_status = forms.BooleanField(required=False,label='Hide All Completed Tasks:', widget=checkbox(attr=onclic))
+#    class Meta:
+#        user = UserProfile
+#        exclude = ['is_deleted']
+#        widgets = {
+#           'is_anything_required' : CheckboxInput(attrs={'class': 'required checkbox form-control'}),
+#        }

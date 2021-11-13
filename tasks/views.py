@@ -14,7 +14,7 @@ def showAllTasks(UserProfile, TaskEntry, request):
 	table_data = TaskEntry.objects.filter(user=request.user)
 	context = {
 		"table_data": table_data,
-		"task_view_status": False,
+		"task_view_status": False ,
 	}
 	return render(request, 'tasks/tasks.html', context)
 
@@ -32,18 +32,24 @@ def hideAllCompleted(UserProfile, TaskEntry, request):
 
 @login_required(login_url='/login/')
 def tasks(request):
-	task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')[0]['tasks_view_hide_completed']
+	task_view_status = UserProfile.objects.filter(user=request.user).values('tasks_view_hide_completed')
+	if(task_view_status.exists()):
+		task_view_status = task_view_status[0]['tasks_view_hide_completed']
+	else:
+		task_view_status = False
+
+
 	if (request.method == "GET" and "delete" in request.GET):
 		id = request.GET["delete"]
 		TaskEntry.objects.filter(id=id).delete()
 		return redirect("/tasks/")
-	elif (request.method == "POST" and "tasks_view_hide_completed" in request.POST):
-		if(task_view_status == True):
-			return showAllTasks(UserProfile, TaskEntry, request)
-		else:
+	elif (request.method == "POST"):
+		if('tasks_view_hide_completed' in request.POST):
 			return hideAllCompleted(UserProfile, TaskEntry, request)
+		else:
+			return showAllTasks(UserProfile, TaskEntry, request)
 	else:
-		if(task_view_status == False):
+		if(not task_view_status):
 			return showAllTasks(UserProfile, TaskEntry, request)
 		else:
 			return hideAllCompleted(UserProfile, TaskEntry, request)
